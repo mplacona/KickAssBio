@@ -10,6 +10,11 @@
     "jade": "*",
     "stylus": "*",
     "nib": "*",
-    "moment": "*"
+    "moment": "*",
+    "mocha" : "*",
+    "should" : "*"
+  },
+  "devDependencies": {
+  	"zombie": "*"
   }
 }

@@ -3,17 +3,25 @@ doctype
 extends layout
 
 block content
-    #login-container
-        form( method="post")#login-form.well.span4
-            h1 Hello!
-            p.subheading Please Login To Your Account
-            label Username 
-            input(type="text", name="user", id='user-tf').span4.required
-            label Password
-            input(type="password", name="pass", id='pass-tf').span4.required
-            button(type="submit")#btn-login.btn.btn-primary
-                i.icon-lock.icon-white
-                | Sign in
-            hr
-            div.btm-links
-                a(href='/signup')#create-account Create An Account
+	#login-container
+		form( method="post")#login-form.well.span4
+			h1 Hello!
+			p.subheading Please Login To Your Account
+			label Username 
+			input(type="text", name="user", id='user-tf').span4.required
+			label Password
+			input(type="password", name="pass", id='pass-tf').span4.required
+			button(type="submit")#btn-login.btn.btn-primary
+				i.icon-lock.icon-white
+				| Sign in
+			hr
+			div.btm-links
+				a(href='/signup')#create-account Create An Account
+	
+block scripts
+	script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+	script(src='http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.js')
+	script(type="text/javascript")
+		$(document).ready(function(){
+			$("#login-form").validate();
+		});
