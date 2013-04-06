@@ -2,7 +2,7 @@
 process.env.NODE_ENV = 'test';
 
 // get the application
-var app = require('../../app');
+var app = require('../app');
 var http = require('http');
 
 // use zombie as a headless browser
