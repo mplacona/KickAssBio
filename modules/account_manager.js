@@ -1,34 +1,31 @@
-
-var crypto 		= require('crypto')
-var MongoDB 	= require('mongodb').Db;
-var Server 		= require('mongodb').Server;
+var crypto 		= require('crypto');
 var moment 		= require('moment');
+var db          = require('mongoose');
 
 var dbPort 		= 27017;
 var dbHost 		= 'localhost';
 var dbName 		= 'KickAssBio';
 
 /* establish the database connection */
-
-var db = new MongoDB(dbName, new Server(dbHost, dbPort, {auto_reconnect: true}), {w: 1});
-	db.open(function(e, d){
-	if (e) {
-		console.log(e);
-	}	else{
-		console.log('connected to database :: ' + dbName);
-	}
+var accountSchema = new mongoose.Schema({
+      name: String
+    , email: String
+    , user: String
+    , pass: String
 });
-var accounts = db.collection('accounts');
+
+db.model('Account', accountSchema);
+db.connect('mongodb://localhost/KickAssBio');
 
 /* record insertion, update & deletion methods */
 
 exports.addNewAccount = function(newData, callback)
 {
-	accounts.findOne({user:newData.user}, function(e, o) {
+	Account.findOne({user:newData.user}, function(e, o) {
 		if (o){
 			callback('username-taken');
 		}	else{
-			accounts.findOne({email:newData.email}, function(e, o) {
+			Account.findOne({email:newData.email}, function(e, o) {
 				if (o){
 					callback('email-taken');
 				}	else{
@@ -36,7 +33,7 @@ exports.addNewAccount = function(newData, callback)
 						newData.pass = hash;
 					// append date stamp when record was created //
 						newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
-						accounts.insert(newData, {safe: true}, callback);
+						Account.insert(newData, {safe: true}, callback);
 					});
 				}
 			});

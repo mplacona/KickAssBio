@@ -11,10 +11,11 @@
     "stylus": "*",
     "nib": "*",
     "moment": "*",
-    "mocha" : "*",
-    "should" : "*"
+    "mongoose": "*"
   },
   "devDependencies": {
-  	"zombie": "*"
+  	"zombie": "*",
+    "mocha" : "*",
+    "should" : "*"
   }
 }
