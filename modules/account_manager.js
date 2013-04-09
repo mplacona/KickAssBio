@@ -1,21 +1,7 @@
 var crypto 		= require('crypto');
 var moment 		= require('moment');
 var db          = require('mongoose');
-
-var dbPort 		= 27017;
-var dbHost 		= 'localhost';
-var dbName 		= 'KickAssBio';
-
-/* establish the database connection */
-var accountSchema = new mongoose.Schema({
-      name: String
-    , email: String
-    , user: String
-    , pass: String
-});
-
-db.model('Account', accountSchema);
-db.connect('mongodb://localhost/KickAssBio');
+var Account     = db.model('Account');
 
 /* record insertion, update & deletion methods */
 
@@ -33,7 +19,15 @@ exports.addNewAccount = function(newData, callback)
 						newData.pass = hash;
 					// append date stamp when record was created //
 						newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
-						Account.insert(newData, {safe: true}, callback);
+						//Account.insert(newData, {safe: true}, callback);
+                        new Account({
+                            name    : newData.name,
+                            email   : newData.email,
+                            user    : newData.user,
+                            pass    : newData.pass
+                        }).save( function(err, todo, count){
+                            callback.redirect('/');
+                        });
 					});
 				}
 			});

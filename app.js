@@ -1,7 +1,10 @@
 
-/**
- * Module dependencies.
- */
+// DB setup
+require('./modules/db.js');
+
+/*
+ * module dependencies
+*/
 
 var express = require('express')
   , routes = require('./routes')
