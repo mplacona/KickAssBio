@@ -2,6 +2,7 @@ var crypto 		= require('crypto');
 var moment 		= require('moment');
 var db          = require('mongoose');
 var Account     = db.model('Account');
+var moment 		= require('moment');
 
 /* record insertion, update & deletion methods */
 
@@ -57,3 +58,4 @@ var saltAndHash = function(pass, callback)
 	var salt = generateSalt();
 	callback(salt + md5(pass + salt));
 }
+
