@@ -25,10 +25,10 @@ exports.addNewAccount = function(newData, callback)
                             email   : newData.email,
                             user    : newData.user,
                             pass    : newData.pass
-                        }).save( function(err, todo, count){
-                            callback.redirect('/');
-                        });
-					});
+                        }).save(function( err, todo, count ){
+                            
+                         });
+                  });
 				}
 			});
 		}

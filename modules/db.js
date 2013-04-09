@@ -9,6 +9,7 @@ var Account = new Schema({
     , email: String
     , user: String
     , pass: String
+    , date: Date
 }); 
 
 db.model('Account', Account);
