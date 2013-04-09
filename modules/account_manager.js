@@ -17,14 +17,36 @@ exports.addNewAccount = function(newData, callback)
 					callback('email-taken');
 				}	
 				else{
-					newData.date = moment().format('YYYY-MM-DD hh:mm:ss a');
-                    new Account({
-                        name    : newData.name,
-                        email   : newData.email,
-                        user    : newData.user,
-                        pass    : newData.pass,
-                        date	: newData.date
-                    }).	save(callback);	
+					// hash the password before storing
+					saltAndHash(newData.pass, function(hash){
+						newData.pass = hash;
+					
+	                    new Account({
+	                        name    : newData.name,
+	                        email   : newData.email,
+	                        user    : newData.user,
+	                        pass    : newData.pass,
+	                        date	: moment().format('YYYY-MM-DD hh:mm:ss a')
+	                    }).	save(callback);	
+					});
+				}
+			});
+		}
+	});
+}
+
+exports.login = function(user, pass, callback){
+	Account.findOne({user:user}, function(e, o){
+		if(o == null){
+			callback('user-not-found');
+		}
+		else{
+			validatePassword(pass, o.pass, function(err, res){
+				if(res){
+					callback(null, o);
+				}
+				else{
+					callback('invalid-password');
 				}
 			});
 		}
@@ -54,3 +76,9 @@ var saltAndHash = function(pass, callback)
 	callback(salt + md5(pass + salt));
 }
 
+var validatePassword = function(plainPass, hashedPass, callback)
+{
+	var salt = hashedPass.substr(0, 10);
+	var validHash = salt + md5(plainPass + salt);
+	callback(null, hashedPass === validHash);
+}
