@@ -35,7 +35,7 @@ exports.login = function(req, res){
             res.send(e, 400);
         }
         else{
-            req.session.user(o);
+            req.session.user = o;
             res.send(o, 200);
         }
     });

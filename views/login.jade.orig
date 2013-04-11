@@ -4,7 +4,11 @@ extends layout
 
 block content
 	#login-container
+<<<<<<< Updated upstream
+		form( method="post", action='/login')#login-form.well.span4
+=======
 		form( method="post", action="/login" )#login-form.well.span4
+>>>>>>> Stashed changes
 			h1 Hello!
 			p.subheading Please Login To Your Account
 			label Username 
