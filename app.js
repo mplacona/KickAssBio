@@ -52,6 +52,7 @@ app.get('/', routes.index);
 // User
 app.get('/signup', user.signup);
 app.post('/signup', user.create);
+app.post('/login', user.login);
 
 module.exports = app;
 if (!module.parent) {

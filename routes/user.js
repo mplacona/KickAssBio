@@ -28,3 +28,15 @@ exports.create = function(req, res){
 		}
 	});
 };
+
+exports.login = function(req, res){
+    AM.login(req.param('user'), req.param('pass'), function(e, o){
+        if(!o){
+            res.send(e, 400);
+        }
+        else{
+            req.session.user(o);
+            res.send(o, 200);
+        }
+    });
+}
